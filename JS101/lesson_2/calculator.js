@@ -32,3 +32,4 @@ switch (operation) {
 }
 
 console.log(`The result is: ${output}`);
+
