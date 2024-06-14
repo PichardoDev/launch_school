@@ -4,6 +4,12 @@ function prompt(message) {
   console.log(`=> ${message}`);
 }
 
+function continueCalculation () {
+  prompt("Would like to perform another calculation 1)Yes! 2)No!");
+  return readline.question() == '1' ? true : false;
+}
+
+function runCalculator (){
 prompt('Welcome to Calculator!');
 
 prompt('Input the first number');
@@ -32,4 +38,11 @@ switch (operation) {
 }
 
 console.log(`The result is: ${output}`);
+
+}
+
+
+do {
+  runCalculator();
+}while (continueCalculation());
 
