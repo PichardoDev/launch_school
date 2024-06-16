@@ -1,60 +1,62 @@
 const jsonMessage = require('/home/ubuntu/launch_school/JS101/lesson_2/calculator_messages.json');
 const readline = require('readline-sync');
-
-
+let language = 'en';
+  
 function prompt(message) {
   console.log(`=> ${message}`);
 }
 
-function continueCalculation () {
-  prompt("Would like to perform another calculation 1)Yes! 2)No!");
-  return readline.question() == '1' ? true : false;
+function selectLanguage() {
+
+  availableLanguages = ['en', 'pt', 'de', 'jp', 'es'];
+  let code = readline.question(prompt(jsonMessage.language));
+  while(!availableLanguages.includes(code)) {
+    prompt('Sorry not a valid language, try again!\n');
+    code = readline.question(prompt(jsonMessage.language));
+  }
+    return code;
 }
 
-function getNumber(message) {
-let number;
+function getNumber(ordinalNumber) {
 
-do { 
-  prompt(message);
-  number = readline.question();
-  numberNum = Number(number);
-  console.log(number, numberNum);
-} while(!number || Number.isNaN(numberNum))
+  let numberStr = readline.question(prompt(jsonMessage[language][ordinalNumber]));
+  let numberNum = Number(numberStr);
+  while(!numberStr || Number.isNaN(numberNum)){
+    number = readline.question(prompt('Sorry not a valid number, try again!'));
+    numberNum = Number(numberStr);
+  }
+  return numberNum;
+  }
 
-return numberNum;
+function performOperation() {
+
+  let number1 = getNumber('first_number');
+  let number2 = getNumber('second_number');
+  let operation = readline.question(prompt(jsonMessage[language].operation));
+  switch (operation) {
+    case '1':
+      return number1 + number2;
+    case '2':
+      return number1 - number2;
+    case '3':
+      return number1 * number2;
+    case '4':
+      return number1 / number2;
+  }
+}
+  
+function continueCalculation () {
+  prompt("Would like to perform another calculation? press Y (Yes) or N (No)");
+  return readline.question() == 'y' ? true : false;
 }
 
 function runCalculator (){
-prompt(jsonMessage.messages.greeting);
 
-
-number1 = getNumber(jsonMessage.messages.first_number);
-number2 = getNumber(jsonMessage.messages.sencond_number);
-
-
-prompt(jsonMessage.messages.operation);
-let operation = readline.question();
-
-let output;
-switch (operation) {
-  case '1':
-    output = number1 + number2;
-    break;
-  case '2':
-    output = number1 - number2;
-    break;
-  case '3':
-    output = number1 * number2;
-    break;
-  case '4':
-    output = number1 / number2;
-    break;
-}
-
-console.log(jsonMessage.messages.result + " " + output);
+prompt(jsonMessage[language].greeting);
+language = selectLanguage();
+console.log(`${jsonMessage[language].result} ${performOperation(jsonMessage[language].operation)}`);
 
 }
-
 
 do {
   runCalculator();

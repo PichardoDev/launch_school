@@ -1,10 +1,43 @@
 {
-"messages" : {
-	"greeting" : "Welcome to Calculator!",
-	"invalid" : "Hmm... that doesn't look like a valid number.",
-	"first_number" : "Input the first number",
-	"sencond_number" : "Input the second number",
-	"operation" : "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
-	"result" : "(This is a JSON message) The result is"
-}
+  "language" : "Select your preferred language, type in 'en' English, 'pt' Portuguese, 'de' German, 'jp' Japenese or 'es'y Spanish",
+  "en": {
+    "greeting": "Welcome to Calculator!",
+    "invalid": "Hmm... that doesn't look like a valid number.",
+    "first_number": "Input the first number",
+    "second_number": "Input the second number",
+    "operation": "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+    "result": "The result is"
+  },
+  "pt": {
+    "greeting": "Bem-vindo à Calculadora!",
+    "invalid": "Hmm... isso não parece um número válido.",
+    "first_number": "Digite o primeiro número",
+    "second_number": "Digite o segundo número",
+    "operation": "Qual operação você gostaria de realizar?\n1) Adicionar 2) Subtrair 3) Multiplicar 4) Dividir",
+    "result": "O resultado é"
+  },
+  "de": {
+    "greeting": "Willkommen zum Taschenrechner!",
+    "invalid": "Hmm... das sieht nicht nach einer gültigen Zahl aus.",
+    "first_number": "Geben Sie die erste Zahl ein",
+    "second_number": "Geben Sie die zweite Zahl ein",
+    "operation": "Welche Operation möchten Sie durchführen?\n1) Addieren 2) Subtrahieren 3) Multiplizieren 4) Dividieren",
+    "result": "Das Ergebnis ist"
+  },
+  "jp": {
+    "greeting": "電卓へようこそ！",
+    "invalid": "うーん...それは有効な数値ではないようです。",
+    "first_number": "最初の数値を入力してください",
+    "second_number": "2番目の数値を入力してください",
+    "operation": "どの操作を実行しますか？\n1) 加算 2) 減算 3) 乗算 4) 除算",
+    "result": "結果は"
+  },
+  "es": {
+    "greeting": "¡Bienvenido a la Calculadora!",
+    "invalid": "Hmm... eso no parece un número válido.",
+    "first_number": "Introduce el primer número",
+    "second_number": "Introduce el segundo número",
+    "operation": "¿Qué operación te gustaría realizar?\n1) Sumar 2) Restar 3) Multiplicar 4) Dividir",
+    "result": "El resultado es"
+  }
 }
