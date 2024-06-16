@@ -30,9 +30,15 @@ function getNumber(ordinalNumber) {
 
 function performOperation() {
 
+  let operations = ['1', '2', '3', '4'];
   let number1 = getNumber('first_number');
   let number2 = getNumber('second_number');
   let operation = readline.question(prompt(jsonMessage[language].operation));
+  console.log(operation);
+  while (!operations.includes(operation)){
+    prompt('Sorry not a valid mathematic operation');
+    operation = readline.question(prompt(jsonMessage[language].operation));
+  }
   switch (operation) {
     case '1':
       return number1 + number2;
