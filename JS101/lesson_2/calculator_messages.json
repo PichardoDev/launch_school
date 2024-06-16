@@ -1,0 +1,10 @@
+{
+"messages" : {
+	"greeting" : "Welcome to Calculator!",
+	"invalid" : "Hmm... that doesn't look like a valid number.",
+	"first_number" : "Input the first number",
+	"sencond_number" : "Input the second number",
+	"operation" : "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+	"result" : "(This is a JSON message) The result is"
+}
+}

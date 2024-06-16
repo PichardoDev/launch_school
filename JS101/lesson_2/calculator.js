@@ -1,4 +1,6 @@
+const jsonMessage = require('/home/ubuntu/launch_school/JS101/lesson_2/calculator_messages.json');
 const readline = require('readline-sync');
+
 
 function prompt(message) {
   console.log(`=> ${message}`);
@@ -9,35 +11,47 @@ function continueCalculation () {
   return readline.question() == '1' ? true : false;
 }
 
+function getNumber(message) {
+let number;
+
+do { 
+  prompt(message);
+  number = readline.question();
+  numberNum = Number(number);
+  console.log(number, numberNum);
+} while(!number || Number.isNaN(numberNum))
+
+return numberNum;
+}
+
 function runCalculator (){
-prompt('Welcome to Calculator!');
+prompt(jsonMessage.messages.greeting);
 
-prompt('Input the first number');
-let number1 = readline.question();
 
-prompt('Input the second number');
-let number2 = readline.question();
+number1 = getNumber(jsonMessage.messages.first_number);
+number2 = getNumber(jsonMessage.messages.sencond_number);
 
-prompt("What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide");
+
+prompt(jsonMessage.messages.operation);
 let operation = readline.question();
 
 let output;
 switch (operation) {
   case '1':
-    output = Number(number1) + Number(number2);
+    output = number1 + number2;
     break;
   case '2':
-    output = Number(number1) - Number(number2);
+    output = number1 - number2;
     break;
   case '3':
-    output = Number(number1) * Number(number2);
+    output = number1 * number2;
     break;
   case '4':
-    output = Number(number1) / Number(number2);
+    output = number1 / number2;
     break;
 }
 
-console.log(`The result is: ${output}`);
+console.log(jsonMessage.messages.result + " " + output);
 
 }
 
