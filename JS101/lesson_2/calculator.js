@@ -11,7 +11,7 @@ function selectLanguage() {
   const AVAILABLE_LANGUAGES = ['en', 'pt', 'de', 'jp', 'es'];
   let code = readline.question(prompt(jsonMessage.language));
   while (!AVAILABLE_LANGUAGES.includes(code)) {
-    prompt('Sorry not a valid language, try again!\n');
+    console.log("\x1b[3A=> Sorry not a valid language, try again!\x1b[K");
     code = readline.question(prompt(jsonMessage.language));
   }
   return code;
@@ -22,7 +22,7 @@ function getNumber(ordiNumber) {
   let numberStr = readline.question(prompt(jsonMessage[language][ordiNumber]));
   let numberNum = Number(numberStr);
   while (!numberStr || Number.isNaN(numberNum)) {
-    numberStr = readline.question(prompt('Sorry not a valid number, try again!'));
+    numberStr = readline.question(prompt('Sorry not a valid number, try again!\r'));
     numberNum = Number(numberStr);
   }
   return numberNum;
@@ -53,15 +53,17 @@ function selectOperation() {
   let OPERATIONS = ['1', '2', '3', '4'];
   let operation = readline.question(prompt(jsonMessage[language].operation));
   while (!OPERATIONS.includes(operation)) {
-    prompt('Sorry not a valid mathematic operation');
+    prompt('Sorry not a valid mathematic operation\r');
     operation = readline.question(prompt(jsonMessage[language].operation));
   }
   return operation;
 }
 
 function continueCalculation() {
-  prompt("Would like to perform another calculation? press Y (Yes) or N (No)");
-  return readline.question();
+
+  let continuation = readline.question(prompt("Would like to perform another calculation? press Y (Yes) or N (No)\r"));
+  return continuation.toLowerCase() == 'y';
+
 }
 
 function runCalculator() {
@@ -73,6 +75,7 @@ function runCalculator() {
 }
 
 do {
+  console.log('\033[2J\033[0f'); 
   runCalculator();
 } while (continueCalculation());
 
