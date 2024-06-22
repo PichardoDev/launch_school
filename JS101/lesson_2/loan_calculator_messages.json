@@ -1,0 +1,18 @@
+{
+    "nan" : "not a number",
+    "language" : "Select your preferred language, type in 'en' English, 'pt' Portuguese, 'de' German, 'jp' Japenese or 'es' Spanish",
+    "loan_amount": "loan amount",
+    "apr" : {
+	"id" : "APR"
+    },
+    "duration" : {
+	"id" : "loan duration",
+	"format_prompt" : "In the following format MM'm' for Months & YY'y' for Years",
+	"format" : "format",
+	"example" : "for instance if your loan duration, 24 Months use '24m', in the case is 8 Years use '8y'"
+    },
+    "invalid": "Hmm... that doesn't look like a valid ",
+    "please": " Please try again",
+    "input" : "Please input your",
+    "monthly" : "Your monthly payment amount is: $"
+}
