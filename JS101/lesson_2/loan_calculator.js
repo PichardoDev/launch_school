@@ -1,5 +1,5 @@
 const readline = require('readline-sync');
-const MESSAGE = require('./loan_calculator_messages.json')
+const MESSAGE = require('./loan_calculator_messages.json');
 const UP_APR = 2;
 const UP_DURATION = 3;
 const UP_AMOUNT = 2;
@@ -18,16 +18,11 @@ function clearInputLine() {
   console.log('\x1b[2K \x1b[0G \x1b\r[1A');
 }
 
-function promptOnLine(message = undefined, line) {
-  if (message !== undefined)
-    console.log(`\x1b\r[${line}A=> ${message}`);
-}
-
 function prompt(message, upward = -1) {
   if (repeat) {
     console.log(`\x1b\r[${upward + 1}A\x1b[2K \x1b[0G=> ${message}`);
     clearInputLine();
-   } else {
+  } else {
     console.log(`\x1b\r[${upward}A\x1b[2K \x1b[0G=> ${message}`);
     clearInputLine();
   }
@@ -36,61 +31,63 @@ function prompt(message, upward = -1) {
 function validateLoanAmount(str) {
 
   let loanAmountFormat = AMOUNT.exec(str);
-  
   if (loanAmountFormat !== null) {
     let loanAmount = parseFloat(loanAmountFormat[0]);
     if (loanAmount >= MIN_AMOUNT && loanAmount <= MAX_AMOUNT) {
       return loanAmount;
     }
-  } 
+  }
 
   prompt(`${MESSAGE.invalid}${MESSAGE.loan_amount}\n`, UP_AMOUNT);
   repeat = true;
   return false;
-  }
+}
 
 
 function getLoanAmount() {
+  let amount;
   do {
-  let loanAmount = readline.question(prompt(`${MESSAGE.input} ${MESSAGE.loan_amount}`));
-  amount = validateLoanAmount(loanAmount);
-  } while (!amount); 
+    let loanAmount = readline.question(prompt(`${MESSAGE.input} ${MESSAGE.loan_amount}`));
+    amount = validateLoanAmount(loanAmount);
+  } while (!amount);
+  repeat = false;
   return amount;
 
 }
 
 function validateApr(str) {
-  
-    let percentageFormat = PERCENTAGE_APR.exec(str);
-    if (percentageFormat !== null) {
-      let apr = parseFloat(percentageFormat[0]) / 100;
-      if (apr > 0 && apr <= 100) {
-          return apr;
-      }
-    } else {
-        let decimalFormat = DECIMAL_APR.exec(str);
-        if (decimalFormat !== null) {
-          let apr = parseFloat(decimalFormat[0]);
-          if (apr > 0 && apr <= 1) {
-            return apr;
-          } 
-        }
+
+  let percentageFormat = PERCENTAGE_APR.exec(str);
+  if (percentageFormat !== null) {
+    let apr = parseFloat(percentageFormat[0]) / 100;
+    if (apr > 0 && apr <= 100) {
+      return apr;
     }
-        prompt(`${MESSAGE.invalid} ${MESSAGE.apr.id}\n`, UP_APR);
-        
-        repeat = true;
-        return false;
-      
+  } else {
+    let decimalFormat = DECIMAL_APR.exec(str);
+    if (decimalFormat !== null) {
+      let apr = parseFloat(decimalFormat[0]);
+      if (apr > 0 && apr <= 1) {
+        return apr;
+      }
+    }
+  }
+  prompt(`${MESSAGE.invalid} ${MESSAGE.apr.id}\n`, UP_APR);
+
+  repeat = true;
+  return false;
+
 }
 
 function getApr() {
   let apr;
   do {
-  apr = readline.question(prompt(`${MESSAGE.input} ${MESSAGE.apr.id}`));
-  apr = validateApr(apr);
+    apr = readline.question(prompt(`${MESSAGE.input} ${MESSAGE.apr.id}`));
+    apr = validateApr(apr);
   } while (!apr);
-  return apr / 12; 
- 
+  repeat = false;
+  return apr / 12;
+
 
 }
 
@@ -98,16 +95,15 @@ function validateDuration(str) {
   let duration;
   let monthlyDuration = MONTH_DURATION.exec(str);
   if (monthlyDuration !==  null) {
-    duration = parseInt(monthlyDuration[0]);
-    
+    duration = parseInt(monthlyDuration[0], 10);
   } else {
     let yearlyDuration = YEAR_DURATION.exec(str);
     if (yearlyDuration !== null) {
-      duration = parseInt(yearlyDuration[0]) * 12;
+      duration = parseInt(yearlyDuration[0], 10) * 12;
     } else {
       prompt(`${MESSAGE.invalid} ${MESSAGE.duration.id}\n`, UP_DURATION);
       repeat = true;
-      getDuration();
+      return false;
     }
   }
   if (duration > MIN_DURATION && duration <= MAX_DURATION) {
@@ -115,23 +111,20 @@ function validateDuration(str) {
   } else {
     prompt(`${MESSAGE.invalid} ${MESSAGE.duration.id}\n`, UP_DURATION);
     repeat = true;
-    getDuration();
+    return false;
   }
 }
-    
+
 function getDuration() {
-  
+
   let duration;
   do {
-  duration = readline.question(prompt(`${MESSAGE.input} ${MESSAGE.duration.id}\n   ${MESSAGE.duration.example}`));
-  duration = validateDuration(duration);
-  } while (!duration)
+    duration = readline.question(prompt(`${MESSAGE.input} ${MESSAGE.duration.id}\n   ${MESSAGE.duration.example}`));
+    duration = validateDuration(duration);
+  } while (!duration);
+  repeat = false;
   return duration;
-  
-}
 
-function runLoanCalculator() {
-  
 }
 
 function calculateMonthlyPayment() {
@@ -139,9 +132,22 @@ function calculateMonthlyPayment() {
   let amount = getLoanAmount();
   let duration = getDuration();
   let apr = getApr();
-  let payment = (amount * (apr / (1 - Math.pow((1 + apr), (-duration))))).toFixed(2);
-  
-  prompt(`${MESSAGE.monthly}${payment}`);
+  let payment = (amount * (apr / (1 - Math.pow((1 + apr), (-duration)))));
+  return payment.toFixed(2);
+
 }
 
-calculateMonthlyPayment();
+function continueCalculation() {
+
+  let continuation = readline.question(prompt("Would like to perform another calculation? press Y (Yes) or N (No)\r"));
+  return continuation.toLowerCase() === 'y';
+
+}
+
+function runLoanCalculator() {
+  do {
+    prompt(`${MESSAGE.monthly}${calculateMonthlyPayment()}`);
+  } while (continueCalculation());
+}
+
+runLoanCalculator();
