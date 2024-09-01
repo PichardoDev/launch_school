@@ -1,4 +1,6 @@
 const readline = require('readline-sync');
+const MESSAGE = require('./rock_paper_scissors_lizard_spock_messages.json');
+
 const VALID_CHOICES = [
                         { name : "rock",
                           alias : "r"
@@ -24,7 +26,7 @@ function prompt(message) {
 function validateRepeat(answer) {
 
   if (answer[0] !== 'n' && answer[0] !== 'y') {
-    prompt('Invalid entry.')
+    prompt(`${MESSAGE.invalid}`)
     repeat();
   } else if (answer === 'y') {
     return true;
@@ -34,9 +36,8 @@ function validateRepeat(answer) {
 
 function repeat() {
 
-  prompt('Do you want to play again (y/n)?');
+  prompt(`${MESSAGE.again}`);
   let answer = readline.question().toLowerCase();
-  prompt('Please enter "y" or "n".');
   validateRepeat(answer) && playSession();
     
   }
@@ -58,23 +59,26 @@ function decideWinner(choice, computerChoice) {
       return 'Computer wins!';
 }
 
-
+function returnValidChoices () {
+  VALID_CHOICES.forEach((element) => {
+    return `${element.name} (${element.alias}) `
+  })
+}
 
 function playSession() {
-do {
-  prompt(`Choose one: ${VALID_CHOICES.join(', ')}`);
-  let choice = readline.question();
+  do {
+    prompt(`${MESSAGE.choice} ${VALID_CHOICES.join(', ')`);
+    let choice = readline.question();
 
-  while (!VALID_CHOICES.includes(choice)) {
-    prompt("That's not a valid choice");
-    choice = readline.question();
-  }
-  //let randomIndex = Math.ceil(Math.random() * VALID_CHOICES.length) - 1;
-  let randomIndex = Math.round(Math.random() * VALID_CHOICES.length - 1);
-  let computerChoice = VALID_CHOICES[randomIndex];
+    while (!VALID_CHOICES.includes(choice)) {
+      prompt("That's not a valid choice");
+      choice = readline.question();
+    }
+    //let randomIndex = Math.ceil(Math.random() * VALID_CHOICES.length) - 1;
+    let randomIndex = Math.round(Math.random() * VALID_CHOICES.length - 1);
+    let computerChoice = VALID_CHOICES[randomIndex];
 
-  prompt(decideWinner(choice, computerChoice));
+    prompt(decideWinner(choice, computerChoice));
 
-
-} while (playAgain() === true)
+  } while (playAgain() === true)
 }
