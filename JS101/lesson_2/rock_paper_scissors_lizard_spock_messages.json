@@ -1,0 +1,11 @@
+{
+   "greeting": "Welcome to The Rock Paper Scissors Lizard Spock Game!",
+   "invalid": "Hmm... that doesn't look like a entry.",
+   "again" : "Do you want to play again?, Enter (y/n)",
+   "choice": "Make your choice, you can use either full or abbreviated form to make your choice: ",
+   "user_selection": "Player chose ",
+   "computer_selection": ", Computer chose ", 
+   "match_winner": "wins the match!",	
+   "game_winner": "wins the game!'",
+   "game_tie" : "It's a tie!"
+}
