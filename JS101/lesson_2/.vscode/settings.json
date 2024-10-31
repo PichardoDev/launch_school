@@ -1,0 +1,7 @@
+{
+  "launch": {
+    "github.copilot.inlineSuggest.enable": false
+    "configurations": [],
+    "compounds": []
+  }
+}

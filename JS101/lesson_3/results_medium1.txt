@@ -1,0 +1,10 @@
+Q1: ✅  string.repeat exists?
+Q2: ✅ if you convert something to upper temp and then check with the origina version is they match it mean
+Q3: ✅  
+Q4: ❌ concat DONT mutate while push mutates
+Q5: ❌ all JS (and most computer languages handle numerical representations) as floating number which has its own pros and cosn as not being completely accurate particularly arithmetic operations with floating numbers
+Q6: ❌ NaN is differemt to itself (use Number.isNaN()) (is the only value that presents this peculiarity)
+Q7: ✅
+Q8: ✅ make sure to verify how your code interacts with mutable and inmutable value 
+Q9: ❌ DORMIR
+Q10: ✅

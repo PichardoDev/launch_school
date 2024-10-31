@@ -1,0 +1,10 @@
+Q1: ❌ semicolons in JS are optional, however when omitted the JS will insert it where it assumes is needed
+Q2: ❌ any time you perform a mutating operation on a object it is going to change doesnt matter how nested it is?
+Q3: ✅
+Q4: ❌ primitives everything that has a value and is not object can be literals & variables even undefined returned if returned by a function
+Q5: ✅ 
+Q6:
+Q7:
+Q8:
+Q9:
+Q10:

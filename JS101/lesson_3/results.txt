@@ -1,0 +1,10 @@
+Q1: ✅
+Q2: ❌ in JS you cant concat arrays using '+' operator it will coerce them into strings and then join them resulting in undesire outcomes 
+Q3: ✅ 
+Q4: ❌ slice shallow copy / splice mutate 
+Q5: ❌ keep in mind that expressions evaluate to a value that is implicitly return, and remember about arrow functions being able to be assigned to a const or var
+Q6: ❌ objects assigments provide a shallow copy, functions are objects, any literal like number or letter count as a primitive, remember most identifiers including functions names, function parameters, variable names, constants, class names, 
+Q7: ✅
+Q8: 
+Q9: 
+Q10: 
