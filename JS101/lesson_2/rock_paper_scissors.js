@@ -4,7 +4,7 @@ const PLAYED = { games : 0 };
 const CONTENDERS = [
   {
     name : 'player',
-    score : 0,
+    score : 0
   },
   {
     name : 'computer',
