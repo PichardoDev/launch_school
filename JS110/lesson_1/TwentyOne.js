@@ -80,11 +80,11 @@ function handTotal(playerHand) {
   return sum;
 }
 
-function announceWinner(result) {
+function announceWinner(result, winType = 'Round') {
   if (result === 'Tie') {
     console.log(`It's a ${result}`);
   } else {
-    console.log(`${result} is the Winner!`);
+    console.log(`${result} is the ${winType} Winner!`);
   }
 }
 
@@ -94,13 +94,13 @@ function playerTurn(deck, state, playerHand, playerTotal, dealerHand, dealerTota
   while (true) {
     prompt('For hitting press: "H" For hitting passing: "P"');
     let answer = readline.question();
-    if (answer === "P") return 'pass';
+    if (answer === "P") break;
     if (answer === "H") {
       playerHand.push(playerHits(deck));
       playerTotal.value = handTotal(playerHand);
       displayTable(playerHand, playerTotal, dealerHand, dealerTotal);
       state.winner = (isBusted(playerTotal.value) && 'Dealer') || NO_WINNER_YET;
-      if (state.winner) return 'end';
+      if (state.winner) break;
     }
   }
 }
@@ -118,19 +118,33 @@ function dealerTurn(deck, state, playerHand, playerTotal, dealerHand, dealerTota
   }
 }
 
+function isMatchWinner(playerGames, dealerGames) {
+  /*return  ((playerGames >= 3 && 'Player') ||
+    (dealerGames >= 3 && 'Dealer')) || NO_WINNER_YET; */
+    
+    if (playerGames >= 3) return 'Player';
+    if (dealerGames >= 3) return 'Dealer';
+    return NO_WINNER_YET;
+}
+
 function runGame() {
-  playMatch();
+  while (true) {
+    playMatch();
+    prompt('Play another Match?');
+    let answer = readline.question();
+    if (answer !== 'Y') break;   
+  }
 }
 
 function playMatch() {
-  
   let playerGames = 0;
   let dealerGames = 0;
   let answer;
   
   while(true) {
-
-    switch (playRound()) {
+    let winner;
+    winner = playRound(); 
+    switch (winner) {
       case 'Player' :
         playerGames += 1;
         break;
@@ -138,11 +152,19 @@ function playMatch() {
         dealerGames += 1;
         break;
     }
+
     console.log(`Player won Rounds : ${playerGames}`);
     console.log(`Dealer won Rounds : ${dealerGames}`);
-    prompt('Play another Game? (Y) Yes or (N) No');
-    answer = readline.question();
+
+    winner = isMatchWinner(playerGames, dealerGames);
+    if (winner === 'Player' || winner === 'Dealer') {
+      announceWinner(winner, 'Match');
+      break;
+    } else {
+      prompt('Play another Game? (Y) Yes or (N) No');
+      answer = readline.question();
     if (answer !== 'Y') break;
+    }
   }
 }
 
@@ -160,7 +182,7 @@ function playRound() {
   playerTurn(deck, state, playerHand, playerTotal, dealerHand, dealerTotal);
   if (state.winner === NO_WINNER_YET) {
     dealerTurn(deck, state, playerHand, playerTotal, dealerHand, dealerTotal);
-  }
+  } 
   if (state.winner === NO_WINNER_YET) {
     state.winner = higherHand(playerTotal, dealerTotal);
   }
